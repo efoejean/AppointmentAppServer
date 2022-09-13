@@ -1,10 +1,59 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+type clientsAppointments {
+  stylist_name String
+  appointment_date DateTime
+  hours Int
+  price String
+  service String
+ deposit String
+ created_at DateTime
+
 }
+
+type stylistsAppointments {
+  client_name String
+  appointment_date DateTime
+  hours Int
+  service String
+}
+
+type services {
+  service_name String
+}
+
+type stylistsWeekly_schedule {
+  day String
+  start_time String
+  end_time String
+}
+model clients {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  client_name String 
+  phone_number String
+  email String
+  appointments clientsAppointments[]
+
+}
+
+model stylists {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  services services[]
+  email String
+  weekly_schedule stylistsWeekly_schedule[]
+  appointments stylistsAppointments[]
+  phone_number String
+
+}
+
