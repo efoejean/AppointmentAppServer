@@ -28,16 +28,16 @@ type stylistsAppointments {
   service String
 }
 
-type services {
+type Services {
   service_name String
 }
 
-type stylistsWeekly_schedule {
+type Weekly_schedule {
   day String
   start_time String
   end_time String
 }
-model clients {
+model Clients {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   client_name String 
   phone_number String
@@ -46,12 +46,12 @@ model clients {
 
 }
 
-model stylists {
+model Stylists {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   name    String
-  services services[]
+  services Services[]
   email String
-  weekly_schedule stylistsWeekly_schedule[]
+  weekly_schedule Weekly_schedule[]
   appointments stylistsAppointments[]
   phone_number String
 
