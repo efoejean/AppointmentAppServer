@@ -37,16 +37,16 @@ type Weekly_schedule {
   start_time String
   end_time String
 }
-model Clients {
+model clients {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
-  client_name String 
+  client_name String
   phone_number String
   email String
   appointments clientsAppointments[]
 
 }
 
-model Stylists {
+model stylists {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   name    String
   services Services[]
