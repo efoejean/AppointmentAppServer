@@ -12,31 +12,25 @@ datasource db {
 
 type clientsAppointments {
   stylist_name String
-  appointment_date DateTime
+  appointment_date String
   hours Int
   price String
   service String
  deposit String
- created_at DateTime
-
+ created_at DateTime ? @default(now())
 }
 
 type stylistsAppointments {
   client_name String
-  appointment_date DateTime
+  appointment_date String
   hours Int
   service String
 }
 
 type Services {
-  service_name String
+  name String
 }
 
-type Weekly_schedule {
-  day String
-  start_time String
-  end_time String
-}
 model clients {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   client_name String
@@ -51,7 +45,6 @@ model stylists {
   name    String
   services Services[]
   email String
-  weekly_schedule Weekly_schedule[]
   appointments stylistsAppointments[]
   phone_number String
 
