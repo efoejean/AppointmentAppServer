@@ -1,12 +1,26 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import {
+  clients as ClientModel,
+  stylists as StylistModel,
+} from '@prisma/client';
 
+import { StylistsService } from './stylists.service';
+
+import { ClientsService } from './clients.service';
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly clientsService: ClientsService,
+    private readonly stylistService: StylistsService,
+  ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('clients')
+  getClients(): Promise<ClientModel[]> {
+    return this.clientsService.getClients();
+  }
+
+  @Get('stylists')
+  getStylists(): Promise<StylistModel[]> {
+    return this.stylistService.getStylists();
   }
 }
