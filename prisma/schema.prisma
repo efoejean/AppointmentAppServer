@@ -34,7 +34,7 @@ type Services {
 model clients {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   client_name String
-  phone_number String
+  phone_number String?   @unique
   email String
   appointments clientsAppointments[]
 
@@ -46,7 +46,7 @@ model stylists {
   services Services[]
   email String
   appointments stylistsAppointments[]
-  phone_number String
+  phone_number String?  @unique
 
 }
 
