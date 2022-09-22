@@ -4,22 +4,22 @@ import { PrismaService } from './prisma.service';
 
 @Injectable()
 export class ClientsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private Prisma: PrismaService) {}
 
   async getClient(
     clientWhereUniqueInput: Prisma.clientsWhereUniqueInput,
   ): Promise<Client | null> {
-    return this.prisma.clients.findUnique({
+    return this.Prisma.clients.findUnique({
       where: clientWhereUniqueInput,
     });
   }
 
   async getClients(): Promise<Client[]> {
-    return this.prisma.clients.findMany();
+    return this.Prisma.clients.findMany();
   }
 
   async createClient(data: Prisma.clientsCreateInput): Promise<Client> {
-    return this.prisma.clients.create({
+    return this.Prisma.clients.create({
       data,
     });
   }
@@ -29,14 +29,14 @@ export class ClientsService {
     data: Prisma.clientsUpdateInput;
   }): Promise<Client> {
     const { where, data } = params;
-    return this.prisma.clients.update({
+    return this.Prisma.clients.update({
       data,
       where,
     });
   }
 
   async deleteClient(where: Prisma.clientsWhereUniqueInput): Promise<Client> {
-    return this.prisma.clients.delete({
+    return this.Prisma.clients.delete({
       where,
     });
   }

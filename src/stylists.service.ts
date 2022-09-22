@@ -4,21 +4,21 @@ import { PrismaService } from './prisma.service';
 
 @Injectable()
 export class StylistsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private Prisma: PrismaService) {}
 
   async getStylist(
     stylistWhereUniqueInput: Prisma.stylistsWhereUniqueInput,
   ): Promise<Stylist | null> {
-    return this.prisma.stylists.findUnique({
+    return this.Prisma.stylists.findUnique({
       where: stylistWhereUniqueInput,
     });
   }
   async getStylists() {
-    return this.prisma.stylists.findMany();
+    return this.Prisma.stylists.findMany();
   }
 
   async createStylist(data: Prisma.stylistsCreateInput): Promise<Stylist> {
-    return this.prisma.stylists.create({
+    return this.Prisma.stylists.create({
       data,
     });
   }
@@ -28,7 +28,7 @@ export class StylistsService {
     data: Prisma.stylistsUpdateInput;
   }): Promise<Stylist> {
     const { where, data } = params;
-    return this.prisma.stylists.update({
+    return this.Prisma.stylists.update({
       data,
       where,
     });
@@ -37,7 +37,7 @@ export class StylistsService {
   async deleteStylist(
     where: Prisma.stylistsWhereUniqueInput,
   ): Promise<Stylist> {
-    return this.prisma.stylists.delete({
+    return this.Prisma.stylists.delete({
       where,
     });
   }
