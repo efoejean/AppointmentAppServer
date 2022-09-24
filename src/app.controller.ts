@@ -1,6 +1,15 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import {
   clients as ClientModel,
+  Prisma,
   stylists as StylistModel,
 } from '@prisma/client';
 
@@ -24,6 +33,36 @@ export class AppController {
     return this.clientsService.getClient({ id });
   }
 
+  @Get('client/phoneNumber/:phoneNumber')
+  getClientByPhoneNumber(
+    @Param('phoneNumber') phone_number: string,
+  ): Promise<ClientModel | null> {
+    return this.clientsService.getClient({ phone_number });
+  }
+
+  @Post('client')
+  createClient(
+    @Body() newClient: Prisma.clientsCreateInput,
+  ): Promise<ClientModel> {
+    return this.clientsService.createClient(newClient);
+  }
+
+  @Put('client/:id')
+  updateClient(
+    @Param('id') id: string,
+    @Body() updatedClient: Prisma.clientsUpdateInput,
+  ): Promise<ClientModel> {
+    return this.clientsService.updateClient({
+      where: { id },
+      data: updatedClient,
+    });
+  }
+
+  @Delete('client/:id')
+  deleteClient(@Param('id') id: string): Promise<ClientModel> {
+    return this.clientsService.deleteClient({ id });
+  }
+
   @Get('stylists')
   getStylists(): Promise<StylistModel[]> {
     return this.stylistService.getStylists();
@@ -32,5 +71,36 @@ export class AppController {
   @Get('stylist/id/:id')
   getStylistById(@Param('id') id: string): Promise<StylistModel | null> {
     return this.stylistService.getStylist({ id });
+  }
+
+  @Get('stylist/phoneNumber/:phoneNumber')
+  getStylistByPhoneNumber(
+    @Param('phoneNumber') phone_number: string,
+  ): Promise<StylistModel | null> {
+    return this.stylistService.getStylist({ phone_number });
+  }
+
+  @Post('stylist')
+  createStylist(
+    @Body() newStylist: Prisma.stylistsCreateInput,
+  ): Promise<StylistModel> {
+    return this.stylistService.createStylist(newStylist);
+  }
+
+  @Put('stylist/:id')
+  updateStylist(
+    @Param('id') id: string,
+
+    @Body() updatedStylist: Prisma.stylistsUpdateInput,
+  ): Promise<StylistModel> {
+    return this.stylistService.updateStylist({
+      where: { id },
+      data: updatedStylist,
+    });
+  }
+
+  @Delete('stylist/:id')
+  deleteStylist(@Param('id') id: string): Promise<StylistModel> {
+    return this.stylistService.deleteStylist({ id });
   }
 }
