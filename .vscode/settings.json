@@ -1,5 +1,4 @@
 {
-    
   "editor.bracketPairColorization.enabled": true,
   "editor.codeActionsOnSave": {
     "addMissingImports": true,
@@ -20,4 +19,5 @@
   "prettier.requireConfig": true,
   "typescript.validate.enable": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
+  "cSpell.words": ["nestjs"]
 }

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,43 +7,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-type clientsAppointments {
-  stylist_name String
+type ClientsAppointments {
+  id               String
   appointment_date String
-  hours Int
-  price String
-  service String
- deposit String
- created_at DateTime ? @default(now())
+  created_at       DateTime? @default(now())
+  deposit          String
+  price            String
+  service          String
+  status           String @default("Scheduled")
+  stylist_name     String
 }
 
-type stylistsAppointments {
-  client_name String
+type StylistsAppointments {
   appointment_date String
-  hours Int
-  service String
+  client_name      String
+  service          String
 }
 
-type Services {
+type StylistsServices {
   name String
 }
 
-model clients {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  client_name String
-  phone_number String?   @unique
-  email String
-  appointments clientsAppointments[]
+model appointments {
+  id               String                @id @default(auto()) @map("_id") @db.ObjectId
+  appointment_date String
 
+  created_at       DateTime? @default(now())
+  deposit          String
+  price            String
+  service          String
+  status           String @default("Scheduled")
+  clientName       String
+  client_name      clients  @relation(fields: [clientPhoneNumber], references: [phone_number])
+  clientPhoneNumber         String
+
+  stylist_name     stylists @relation(fields: [stylistName], references: [phone_number])
+ stylistName      String
+
+
+}
+
+model clients {
+  id           String                @id @default(auto()) @map("_id") @db.ObjectId
+  appointments appointments[]
+  client_name  String
+  email        String
+  phone_number String @unique
 }
 
 model stylists {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  services Services[]
-  email String
-  appointments stylistsAppointments[]
-  phone_number String?  @unique
-
+  id           String                 @id @default(auto()) @map("_id") @db.ObjectId
+  appointments appointments[]
+  email        String
+  name         String @unique
+  phone_number String @unique
+  services     StylistsServices[]
 }
-
