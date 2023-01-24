@@ -143,9 +143,4 @@ export class AppController {
       data: updatedAppointment,
     });
   }
-
-  @Delete('appointment/:id')
-  deleteAppointment(@Param('id') id: string): Promise<AppointmentModel> {
-    return this.appointmentsService.deleteAppoint({ id });
-  }
 }
